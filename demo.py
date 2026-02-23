@@ -97,7 +97,7 @@ p_out = 15/1e6
 cols = pd.read_csv(column_file)
 
 raw = pd.read_csv(input_file,
-                  sep='\t',            # tab-separated data
+                  sep='\t',            # data separated by tabs
                   names=cols['name'],  # use for column names
                   dtype=str)           # leave everything as str
 
@@ -105,11 +105,15 @@ print('Records read',len(raw))
 
 #
 #  Pick a random sample of vehicles. There may be more than one
-#  record per vehicle so draw the sample from the VINs.
+#  record per vehicle so draw the sample from the VINs. 
+#
+#  The random_state parameter initializes the random number
+#  generator. It's useful for testing because it ensures that
+#  the same sequence of random rows is chosen each time.
 #
 
 vins = raw['VIN'].drop_duplicates()
-vins = vins.sample(frac=0.001)
+vins = vins.sample(frac=0.001,random_state=789)
 
 print('VINs selected',len(vins))
 
