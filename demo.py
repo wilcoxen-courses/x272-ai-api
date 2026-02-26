@@ -105,7 +105,7 @@ print('Records read',len(raw))
 
 #
 #  Pick a random sample of vehicles. There may be more than one
-#  record per vehicle so draw the sample from the VINs. 
+#  record per vehicle so draw the sample from the VINs.
 #
 #  The random_state parameter initializes the random number
 #  generator. It's useful for testing because it ensures that
@@ -332,3 +332,74 @@ trim = merged[keep_cols]
 #
 
 trim.to_excel(output_file,index=False)
+
+#%%
+#====================================================================
+#  Aside on classes in more detail.
+#
+#  This is purely to illustrate how classes work and is NOT needed
+#  for accessing Anthropic.
+#====================================================================
+
+#
+#  The following creates a class of data objects called myDF that
+#  is an extension of a Pandas DataFrame. It will have all the
+#  attributes and methods of a DataFrame plus a couple more
+#  added here.
+#
+
+class myDF( pd.DataFrame ):
+
+    sig = 'Howdy'
+
+    def capcols(self):
+        cols = self.columns
+        caps = [c.title() for c in cols]
+        return caps
+
+#%%
+#
+#  Outside the class definition. Now create some sample data
+#
+
+data = {
+    'alpha':[1,2,3],
+    'BETA':[4,5,6]
+    }
+
+#
+#  Build a standard DataFrame and a myDF for comparison
+#
+
+standard = pd.DataFrame( data )
+extended = myDF( data )
+
+#
+#  Print the type
+#
+
+print( type(standard) )
+print( type(extended) )
+
+#
+#  Use the normal DataFrame features of the new class
+#
+
+extended['nEW Col'] = extended['alpha']+extended['BETA']
+
+print( extended.columns )
+print( extended )
+print( extended.mean() )
+
+#
+#  Check the new attribute
+#
+
+# print(standard.sig) # would be an error
+print( extended.sig )
+
+#
+#  Use the new capcols method
+#
+
+print( extended.capcols() )
