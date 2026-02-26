@@ -33,3 +33,4 @@ makefile
 *.pkl
 *.zip
 *.csv
+apikey.txt
