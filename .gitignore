@@ -27,6 +27,7 @@ desktop.ini
 .Rdata
 *.pgw
 makefile
+.snaplinks.txt
 
 # Data
 *.gpkg
